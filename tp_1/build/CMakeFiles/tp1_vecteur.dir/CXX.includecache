@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/local.isima.fr/vicanhotod/tp_1/src/nuage.cpp
+nuage.hpp
+/home/local.isima.fr/vicanhotod/tp_1/src/nuage.hpp
+
+/home/local.isima.fr/vicanhotod/tp_1/src/nuage.hpp
+point.hpp
+/home/local.isima.fr/vicanhotod/tp_1/src/point.hpp
+iterator
+-
+cstddef
+-
+
+/home/local.isima.fr/vicanhotod/tp_1/src/point.hpp
+iostream
+-
+vector
+-
+sstream
+-
+cmath
+-
+
