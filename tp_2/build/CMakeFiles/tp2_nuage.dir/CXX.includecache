@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/local.isima.fr/vicanhotod/TP_Cpp_ZZ3/tp_2/src/cartesien.hpp
+point.hpp
+/home/local.isima.fr/vicanhotod/TP_Cpp_ZZ3/tp_2/src/point.hpp
+polaire.hpp
+/home/local.isima.fr/vicanhotod/TP_Cpp_ZZ3/tp_2/src/polaire.hpp
+
+/home/local.isima.fr/vicanhotod/TP_Cpp_ZZ3/tp_2/src/point.hpp
+iostream
+-
+vector
+-
+sstream
+-
+cmath
+-
+
+/home/local.isima.fr/vicanhotod/TP_Cpp_ZZ3/tp_2/src/polaire.cpp
+polaire.hpp
+/home/local.isima.fr/vicanhotod/TP_Cpp_ZZ3/tp_2/src/polaire.hpp
+
+/home/local.isima.fr/vicanhotod/TP_Cpp_ZZ3/tp_2/src/polaire.hpp
+point.hpp
+/home/local.isima.fr/vicanhotod/TP_Cpp_ZZ3/tp_2/src/point.hpp
+cartesien.hpp
+/home/local.isima.fr/vicanhotod/TP_Cpp_ZZ3/tp_2/src/cartesien.hpp
+
