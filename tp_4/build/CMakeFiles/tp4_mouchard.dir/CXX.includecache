@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../src/complexe.hpp
+iostream
+-
+mouchard.hpp
+-
+
+../src/mouchard.hpp
+iostream
+-
+type_traits
+-
+utility
+-
+
+/home/local.isima.fr/vicanhotod/TP_Cpp_ZZ3/tp_4/test/test_mouchard.cpp
+iostream
+-
+complexe.hpp
+-
+
