@@ -6,15 +6,6 @@
 #include <complexe.hpp>
 #include <stdexcept>
 
-/**
- * 20 C D
- * 20 C AD + 20 A M
- * 10 C D + 10 A C
- * 20 C D + 10 A C + 10 C AD + 10 A M
- * 30 C D + 10 A C + 20 C AD + 20 A M
- * 10 C C
- */
-
 // Classe  V e c t e u r //-------------------------------------------------------------------------
 class Vecteur {
  //----------------------------------------------------------------------------------------Attributs
@@ -45,6 +36,12 @@ class Vecteur {
    for (unsigned i = 0; i<taille_; ++i) tableau_[i]=v[i];
   }
 
+  //--------------------------------------------------------------------------Constructeur mouvement
+  Vecteur(Vecteur && v) : taille_(v.taille_),tableau_(v.tableau_) {
+   v.taille_=0;
+   v.tableau_=0;
+  }
+
   //-------------------------------------------------------------------------------------Destructeur
   ~Vecteur(void) { if (tableau_) delete [] tableau_; }
 
@@ -55,6 +52,13 @@ class Vecteur {
     for (unsigned i = 0; i<v.taille_; ++i) tableau_[i]=v[i];
    }
 
+   return *this;
+  }
+
+  //---------------------------------------------------------------------------Affectation mouvement
+  Vecteur & operator=(Vecteur && v) {
+   if (taille_!=v.taille_) throw std::length_error("");
+   std::swap(tableau_,v.tableau_);
    return *this;
   }
 };

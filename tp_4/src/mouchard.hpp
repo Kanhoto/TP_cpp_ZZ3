@@ -2,15 +2,6 @@
 #ifndef _MOUCHARD_HPP_
 #define _MOUCHARD_HPP_
 
-/**
- * C ad hoc
- * C ad hoc
- * C copie
- * C mouvement
- * A mouvement + C ad hoc
- * A copie + C D
- */
-
 // Entetes //---------------------------------------------------------------------------------------
 #include <iostream>
 #include <type_traits>

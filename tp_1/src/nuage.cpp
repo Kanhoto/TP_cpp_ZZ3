@@ -1,17 +1,32 @@
-#include "nuage.hpp"
+// Entetes //---------------------------------------------------------------------------------------
+#include <nuage.hpp>
 
-Nuage::Nuage(){}
+// Fonctions //-------------------------------------------------------------------------------------
 
-void Nuage::ajouter(Point & Pt){
-    vecPoints.push_back(&Pt);
+//----------------------------------------------------------------------------------------Barycentre
+Cartesien barycentre(const Nuage & nuage) {
+ Cartesien c;
+ double x = 0.0;
+ double y = 0.0;
+ int n = 0;
+
+ // Boucle a l'ancienne
+ // for (Nuage::const_iterator i = nuage.begin(); i<nuage.end(); ++i) {
+ //  (*i)->convertir(c);
+ //  x+=c.getX();
+ //  y+=c.getY();
+ //  ++n;
+ // }
+
+ // Boucle C++ moderne
+ for (Point * p : nuage) {
+  p->convertir(c);
+  x+=c.getX();
+  y+=c.getY();
+  ++n;
+ }
+
+ return Cartesien(x/n,y/n);
 }
 
-int Nuage::size() const{
-    return vecPoints.size();
-}
-
-Cartesien barycentre(Nuage & const Nua){
-    for(Point* p : Nua.vecPoints){
-        
-    }
-}
+// Fin //-------------------------------------------------------------------------------------------

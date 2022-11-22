@@ -1,23 +1,53 @@
-#ifndef NUAGE_KV
-#define NUAGE_KV
+// Gardien //---------------------------------------------------------------------------------------
+#ifndef NUAGE_HPP_e2de9d8bffa542748c65a181aaf7a778
+#define NUAGE_HPP_e2de9d8bffa542748c65a181aaf7a778
 
-#include "point.hpp"
-#include "cartesien.hpp"
-#include <iterator> // For std::forward_iterator_tag
-#include <cstddef>  // For std::ptrdiff_t
+// Entetes //---------------------------------------------------------------------------------------
+#include <vector>
+#include <cartesien.hpp>
+#include <polaire.hpp>
 
-class Nuage{
-    private:
-        std::vector<Point *> vecPoints;
+// Declarations anticipees //-----------------------------------------------------------------------
+class Nuage;
 
-    public:
-        Nuage();
-        void ajouter(Point & Pt);
-        int size() const;
-        using const_iterator = std::vector<Point *>::const_iterator;
-        const_iterator begin(){return vecPoints.begin();};
-        const_iterator end(){return vecPoints.end();};
-        friend Cartesien barycentre(Nuage & const);
+// Declarations fonctions //------------------------------------------------------------------------
+Cartesien barycentre(const Nuage &);
+
+// Classe  N u a g e //-----------------------------------------------------------------------------
+class Nuage {
+ //---------------------------------------------------------------------------------------------Type
+ public:
+  using iterator = std::vector<Point *>::iterator;
+  using const_iterator = std::vector<Point *>::const_iterator;
+ //----------------------------------------------------------------------------------------Attributs
+ private:
+  std::vector<Point *> points_;
+ //---------------------------------------------------------------------------------------Accesseurs
+ public:
+  std::size_t size() const { return points_.size(); }
+
+  const_iterator begin() const { return points_.begin(); }
+  const_iterator end() const { return points_.end(); }
+
+  iterator begin() { return points_.begin(); }
+  iterator end() { return points_.end(); }
+ //-------------------------------------------------------------------------------Methodes publiques
+ public:
+  void ajouter(Point * point) { points_.push_back(point); }
+  void ajouter(Point & point) { points_.push_back(&point); }
 };
 
+// Classe  B a r y c e n t r e C a r t e s i e n //-------------------------------------------------
+class BarycentreCartesien {
+ public:
+  Cartesien operator()(const Nuage & nuage) { return barycentre(nuage); }
+};
+
+// Classe  B a r y c e n t r e P o l a i r e //-----------------------------------------------------
+class BarycentrePolaire {
+ public:
+  Polaire operator()(const Nuage & nuage) { return Polaire(barycentre(nuage)); }
+};
+
+// Fin //-------------------------------------------------------------------------------------------
 #endif

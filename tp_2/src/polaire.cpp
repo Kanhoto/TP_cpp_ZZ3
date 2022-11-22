@@ -1,25 +1,35 @@
-#include "polaire.hpp"
+// Entetes //---------------------------------------------------------------------------------------
+#include <cmath>
+#include <cartesien.hpp>
+#include <polaire.hpp>
 
-Polaire::Polaire(double newAngle, double newDistance):angle(newAngle),distance(newDistance){}
+// Implementation  P o l a i r e //-----------------------------------------------------------------
 
-Polaire::Polaire(Cartesien & Car){
-    Car.convertir(*this);
+//--------------------------------------------------------------------------------------Constructeur
+Polaire::Polaire(const Cartesien & cartesien) { cartesien.convertir(*this); }
+
+//------------------------------------------------------------------------------------------Afficher
+void Polaire::afficher(std::ostream & flux) const
+{ flux << "(a=" << angle_ << ";d=" << distance_ << ")"; }
+
+//-------------------------------------------------------------------------------------------Charger
+void Polaire::charger(std::istream & flux) {
+ flux >> angle_;
+ flux >> distance_;
 }
 
-Polaire::Polaire(){
-    
+//-----------------------------------------------------------------------------------------Convertir
+void Polaire::convertir(Cartesien & cartesien) const {
+ double angle = angle_*PI/180.;
+
+ cartesien.setX(distance_*cos(angle));
+ cartesien.setY(distance_*sin(angle));
 }
 
-void Polaire::afficher(std::ostream & myStream) const{
-    myStream << "(a=" << getAngle() << ";d=" << getDistance() << ")";
+//-----------------------------------------------------------------------------------------Convertir
+void Polaire::convertir(Polaire & polaire) const {
+ polaire.angle_=angle_;
+ polaire.distance_=distance_;
 }
 
-void Polaire::convertir(Cartesien & Car) const{
-    Car.setX(distance * cos(angle*(M_PI/180)));
-    Car.setY(distance * sin(angle*(M_PI/180)));
-}
-
-void Polaire::convertir(Polaire & Pol) const{
-    Pol.setAngle(angle);
-    Pol.setDistance(distance);
-}
+// Fin //-------------------------------------------------------------------------------------------

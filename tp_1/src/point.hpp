@@ -1,27 +1,28 @@
-#ifndef POINT_KV
-#define POINT_KV
+// Gardien //---------------------------------------------------------------------------------------
+#ifndef POINT_HPP_e2de9d8bffa542748c65a181aaf7a778
+#define POINT_HPP_e2de9d8bffa542748c65a181aaf7a778
 
+// Entetes //---------------------------------------------------------------------------------------
 #include <iostream>
-#include <vector>
-#include <sstream>
-#include <cmath>
 
-class Polaire;
+// Declarations anticipees //-----------------------------------------------------------------------
+class Point;
 class Cartesien;
+class Polaire;
 
-class Point{
-    public:
-        Point();
-        virtual void afficher(std::ostream &) const = 0;
-        virtual double getX() const = 0;
-        virtual double getY() const = 0;
+// Declarations fonctions //------------------------------------------------------------------------
+std::ostream & operator<<(std::ostream &,const Point &);
+std::istream & operator>>(std::istream &,Point &);
 
-        friend std::ostream & operator<<(std::ostream & out, const Point & p){
-            p.afficher(out);
-            return out;
-        }
-        virtual void convertir(Polaire & Pol) const = 0;
-        virtual void convertir(Cartesien & Car) const = 0;
+// Classe  P o i n t //-----------------------------------------------------------------------------
+class Point {
+ //-------------------------------------------------------------------------------Methodes publiques
+ public:
+  virtual void afficher(std::ostream &) const = 0;
+  virtual void charger(std::istream &) = 0;
+  virtual void convertir(Cartesien &) const = 0;
+  virtual void convertir(Polaire &) const = 0;
 };
 
+// Fin //-------------------------------------------------------------------------------------------
 #endif

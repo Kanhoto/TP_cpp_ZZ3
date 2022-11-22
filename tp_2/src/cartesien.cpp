@@ -1,27 +1,48 @@
-#include "cartesien.hpp"
+// Entetes //---------------------------------------------------------------------------------------
+#include <cmath>
+#include <cartesien.hpp>
+#include <polaire.hpp>
 
-Cartesien::Cartesien(double newX, double newY):x(newX),y(newY){}
+// Implementation  C a r t e s i e n //-------------------------------------------------------------
 
-Cartesien::Cartesien(Polaire & Pol){
-    Pol.convertir(*this);
+//--------------------------------------------------------------------------------------Constructeur
+Cartesien::Cartesien(const Polaire & polaire) { polaire.convertir(*this); }
+
+//------------------------------------------------------------------------------------------Afficher
+void Cartesien::afficher(std::ostream & flux) const
+{ flux << "(x=" << x_ << ";y=" << y_ << ")"; }
+
+//-------------------------------------------------------------------------------------------Charger
+void Cartesien::charger(std::istream & flux) {
+ flux >> x_;
+ flux >> y_;
 }
 
-Cartesien::Cartesien(){
-    Cartesien(0,0);
+//-----------------------------------------------------------------------------------------Convertir
+void Cartesien::convertir(Cartesien & cartesien) const {
+ cartesien.x_=x_;
+ cartesien.y_=y_;
 }
 
-void Cartesien::afficher(std::ostream & myStream) const{
-    myStream << "(x=" << getX() << ";y=" << getY() << ")";
+//-----------------------------------------------------------------------------------------Convertir
+void Cartesien::convertir(Polaire & polaire) const {
+ double distance = std::sqrt(x_*x_+y_*y_);
+ double angle;
+
+ if (distance==0) angle=0;
+
+ if (x_==0) {
+  if (y_<0) angle=-PI;
+  else angle=PI;
+ }
+ else {
+  if (x_>0) angle=std::atan(y_/x_);
+  else if (x_<0 && y_>=0) angle=std::atan(y_/x_)+PI;
+  else angle=std::atan(y_/x_)-PI;
+ }
+
+ polaire.setDistance(distance);
+ polaire.setAngle(180.0*angle/PI);
 }
 
-void Cartesien::convertir(Polaire & Pol) const{
-    double dis = sqrt(pow(x,2) + pow(y,2));
-    Pol.setDistance(dis);
-    double ang = 2*atan(y/(x + Pol.getDistance()));
-    Pol.setAngle(ang * 180 / M_PI);
-}
-
-void Cartesien::convertir(Cartesien & Car) const{
-    Car.setX(x);
-    Car.setY(y);
-}
+// Fin //-------------------------------------------------------------------------------------------

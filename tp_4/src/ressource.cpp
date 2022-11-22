@@ -1,17 +1,18 @@
 // Entetes //---------------------------------------------------------------------------------------
-#include <point.hpp>
+#include <vector>
+#include <ressource.hpp>
 
 // Fonctions //-------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------Operateur <<
-std::ostream & operator<<(std::ostream & flux,const Point & point) {
- point.afficher(flux);
- return flux;
-}
+std::ostream & operator<<(std::ostream & flux,const ressources_t & ressources) {
+ for (const std::weak_ptr<Ressource> & ressource : ressources) {
+  if (!ressource.expired())
+   flux << (ressource.lock())->getStock() << " ";
+  else
+   flux << "- ";
+ }
 
-//--------------------------------------------------------------------------------------Operateur >>
-std::istream & operator>>(std::istream & flux,Point & point) {
- point.charger(flux);
  return flux;
 }
 
