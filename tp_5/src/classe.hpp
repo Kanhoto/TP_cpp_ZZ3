@@ -43,9 +43,25 @@ class Classe{
             quantite = val_i;
         };
 
-        void ajouter(){
-            ++quantite;
+        void ajouter(double v=1.0){
+            quantite += v;
         }
 };
+
+inline bool operator< (const Classe& lhs, const Classe& rhs) {
+    return lhs.getBorneInf() < rhs.getBorneInf(); 
+}
+
+inline bool operator> (const Classe& lhs, const Classe& rhs) {
+    return lhs.getBorneInf() > rhs.getBorneInf(); 
+}
+
+template<typename Tp>
+    struct ComparateurQuantite
+    {
+      bool operator()( const Tp& lhs, const Tp& rhs ) const{
+        return lhs.getQuantite() > rhs.getQuantite();
+      }
+    };
 
 #endif
