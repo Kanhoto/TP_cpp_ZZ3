@@ -1,67 +1,52 @@
-#ifndef CLASSE_HPP
-#define CLASSE_HPP
+// Gardien //---------------------------------------------------------------------------------------
+#ifndef _CLASSE_HPP_
+#define _CLASSE_HPP_
 
-class Classe{
-    public:
-        double a, b;
-        unsigned int quantite;
+// Entetes //---------------------------------------------------------------------------------------
+#include <iostream>
 
-        Classe(const double & a_i = 0.0, const double & b_i = 0.0, const unsigned int & quantite_i = 0u)
-        :a(a_i),b(b_i),quantite(quantite_i){};
+// Classe  C l a s s e //---------------------------------------------------------------------------
+class Classe {
+ //----------------------------------------------------------------------------------------Attributs
+ private:
+  double   borneInf_;
+  double   borneSup_;
+  unsigned quantite_;
+ //---------------------------------------------------------------------------------------Accesseurs
+ public:
+  double getBorneInf() const { return borneInf_; }
+  double getBorneSup() const { return borneSup_; }
+  double getQuantite() const { return quantite_; }
 
-        double const & getBorneInf() const{
-            return a < b ? a : b;
-        };
-
-        double const & getBorneSup() const{
-            return a > b ? a : b;
-        };
-
-        unsigned int const & getQuantite() const{
-            return quantite;
-        };
-
-        void setBorneInf(const double & val_i){
-            if(a < b){
-                a = val_i;
-            }
-            else{
-                b = val_i;
-            }
-        };
-
-        void setBorneSup(const double & val_i){
-            if(a > b){
-                a = val_i;
-            }
-            else{
-                b = val_i;
-            }
-        };
-
-        void setQuantite(const double & val_i){
-            quantite = val_i;
-        };
-
-        void ajouter(double v=1.0){
-            quantite += v;
-        }
+  void setBorneInf(double borne) { borneInf_=borne; }
+  void setBorneSup(double borne) { borneSup_=borne; }
+  void setQuantite(double quantite) { quantite_=quantite; }
+ //------------------------------------------------------------------------------------Constructeurs
+ public:
+  Classe(double borneInf = 0.0,double borneSup = 0.0)
+  : borneInf_(borneInf),borneSup_(borneSup),quantite_(0) {}
+ //-------------------------------------------------------------------------------Methodes publiques
+ public:
+  void ajouter() { ++quantite_; }
 };
 
-inline bool operator< (const Classe& lhs, const Classe& rhs) {
-    return lhs.getBorneInf() < rhs.getBorneInf(); 
+// Fonctions inline //------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------operator <
+inline bool operator < (const Classe & classe1,const Classe & classe2) {
+ return (classe1.getBorneInf() < classe2.getBorneInf());
 }
 
-inline bool operator> (const Classe& lhs, const Classe& rhs) {
-    return lhs.getBorneInf() > rhs.getBorneInf(); 
+//----------------------------------------------------------------------------------------operator >
+inline bool operator > (const Classe & classe1,const Classe & classe2) {
+ return (classe2<classe1);
 }
 
-template<typename Tp>
-    struct ComparateurQuantite
-    {
-      bool operator()( const Tp& lhs, const Tp& rhs ) const{
-        return lhs.getQuantite() > rhs.getQuantite();
-      }
-    };
+//---------------------------------------------------------------------------------------operator <<
+inline std::ostream & operator << (std::ostream & flux,const Classe & classe) {
+ flux << "[" << classe.getBorneInf() << ";" << classe.getBorneSup() << "]";
+ return flux;
+}
 
+// Fin //-------------------------------------------------------------------------------------------
 #endif

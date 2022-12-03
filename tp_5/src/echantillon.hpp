@@ -1,50 +1,72 @@
-#ifndef ECHANTILLON_HPP
-#define ECHANTILLON_HPP
+// Gardien //---------------------------------------------------------------------------------------
+#ifndef _ECHANTILLON_HPP_
+#define _ECHANTILLON_HPP_
 
-#include "valeur.hpp"
-#include <vector>
+// Entetes //---------------------------------------------------------------------------------------
+#include <algorithm>
+#include <iostream>
 #include <stdexcept>
+#include <vector>
+#include <valeur.hpp>
 
-class Echantillon{
-    public:
-        std::vector<Valeur> vec_value;
+// Classe  E c h a n t i l l o n //-----------------------------------------------------------------
+class Echantillon {
+ //--------------------------------------------------------------------------------------------Types
+ public:
+  using value_type = Valeur; // Necessaire pour la derniere question
+ //----------------------------------------------------------------------------------------Attributs
+ private:
+  std::vector<Valeur> valeurs_;
+ //---------------------------------------------------------------------------------------Accesseurs
+ public:
+  unsigned getTaille() const { return valeurs_.size(); }
 
-        Echantillon(const std::vector<Valeur> & vec_val_i = {})
-        :vec_value(vec_val_i){};
+  const Valeur & getValeur(unsigned indice) const {
+   if (indice<valeurs_.size()) return valeurs_[indice];
+   else throw std::out_of_range("Echantillon::getValeur()");
+  }
+ //-------------------------------------------------------------------------------Methodes publiques
+ public:
+  void ajouter(const Valeur & valeur) { valeurs_.push_back(valeur); }
 
-        ~Echantillon(){};
+  void push_back(const Valeur & valeur) { ajouter(valeur); } // Necessaire pour la derniere question
 
-        const int getTaille() const{
-            return vec_value.size();
-        };
+  const Valeur & getMinimum() const {
+   if (valeurs_.size()!=0) {
+    auto it = std::min_element(valeurs_.begin(),valeurs_.end(), // auto = std::vector<Valeur>::const_iterator
+    	                       [] (const Valeur & a,const Valeur & b) {
+    	                       	return a.getNombre() < b.getNombre();
+    	                       }
+    	                      );
 
-        void ajouter(const Valeur & val_i){
-            vec_value.push_back(val_i);
-        };
+    return *it;
+   }
+   else throw std::domain_error("Echantillon::getMinimum()");
+  }
 
-        const Valeur & getMaximum() const{
-            auto itr = std::min_element(vec_value.begin(), vec_value.end(), [](const Valeur & x, const Valeur & y){
-                return x.getNombre() > y.getNombre();
-                });
-            if(itr == vec_value.end()){
-                throw std::domain_error("Max error");
-            }
-            return *itr;
-        };
+  const Valeur & getMaximum() const {
+   if (valeurs_.size()!=0) {
+    auto it = std::max_element(valeurs_.begin(),valeurs_.end(), // auto = std::vector<Valeur>::const_iterator
+    	                       [] (const Valeur & a,const Valeur & b) {
+    	                       	return a.getNombre() < b.getNombre();
+    	                       }
+    	                      );
 
-        const Valeur & getMinimum() const{
-            auto itr = std::min_element(vec_value.begin(), vec_value.end(), [](const Valeur & x, const Valeur & y){
-                return x.getNombre() < y.getNombre();
-                });
-            if(itr == vec_value.end()){
-                throw std::domain_error("Min error");
-            }
-            return *itr;
-        };
-
-        Valeur getValeur(const int & val_i) const{
-            return vec_value.at(val_i);
-        };
+    return *it;
+   }
+   else throw std::domain_error("Echantillon::getMinimum()");
+  }
 };
 
+// Implementation fonctions //----------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------Operateur <<
+std::ostream & operator<<(std::ostream & flux,const Echantillon & echantillon) {
+ for (unsigned i = 0; i<echantillon.getTaille(); ++i)
+  flux << echantillon.getValeur(i) << " ";
+
+ return flux;
+}
+
+// Fin //-------------------------------------------------------------------------------------------
 #endif
