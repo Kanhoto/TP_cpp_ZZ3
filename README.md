@@ -1,4 +1,4 @@
-# TP_Cpp_ZZ3
+# TP_cpp_ZZ3
 Pour executer l'un des tp, il suffit de se mettre dans le dossier du tp et d'executer les commandes suivantes :
 
     cmake .
